@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My PC Store - Método de Pago</title>
+    <link rel="stylesheet" href="pago.css">
+</head>
+
+<body>
+
+    <!-- Encabezado con Logo, Buscador y Accesos directos -->
+    <header class="main-header">
+        <h1 class="logo"><a href="main_menu.html">My PC Store</a></h1>
+        <div class="search-container">
+            <input type="text" placeholder="Buscar...">
+        </div>
+        <div class="user-links">
+            <a href="main_menu.html" class="btn-account">Catálogo</a>
+            <a href="cart.html" class="btn-account">Carrito</a>
+        </div>
+    </header>
+
+    <!-- Indicador de pasos -->
+    <div class="steps-container">
+        <a href="cart.html" class="step">Carrito</a>
+        <span class="arrow">➡️</span>
+        <span class="step active">(2 Pago)</span>
+        <span class="arrow">➡️</span>
+        <span class="step">3 Confirmación</span>
+    </div>
+
+    <!-- Contenedor principal del pago -->
+    <main class="payment-wrapper">
+
+        <form id="payment-form" onsubmit="event.preventDefault(); procesarPago();">
+
+            <!-- Tarjeta 1: Método de pago -->
+            <section class="payment-card">
+                <h2 class="card-title">Método de pago</h2>
+
+                <!-- Opciones de pago -->
+                <div class="payment-options">
+                    <label class="option-label active" id="label-card">
+                        <input type="radio" name="metodo" value="tarjeta" checked onchange="cambiarMetodo('tarjeta')">
+                        <span class="radio-dot card-dot"></span>
+                        <span class="option-text">Tarjeta de Crédito / Débito</span>
+                    </label>
+
+                    <label class="option-label" id="label-pse">
+                        <input type="radio" name="metodo" value="pse" onchange="cambiarMetodo('pse')">
+                        <span class="radio-dot pse-dot"></span>
+                        <span class="option-text">PSE / Nequi</span>
+                    </label>
+                </div>
+
+                <!-- Campos para Tarjeta -->
+                <div id="fields-card" class="payment-fields">
+                    <div class="form-group">
+                        <input type="text" id="card-number" placeholder="Número de tarjeta **** **** **** ****" required maxlength="19">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" placeholder="MM/AA" maxlength="5" required>
+                        <input type="password" placeholder="CVV" maxlength="4" required>
+                    </div>
+                </div>
+
+                <!-- Campos para PSE / Nequi (ocultos por defecto) -->
+                <div id="fields-pse" class="payment-fields" style="display: none;">
+                    <div class="form-group">
+                        <input type="tel" placeholder="Número de celular (Nequi / Daviplata)">
+                    </div>
+                    <div class="form-group">
+                        <select>
+                            <option value="">Selecciona tu banco (PSE)</option>
+                            <option value="bancolombia">Bancolombia</option>
+                            <option value="davivienda">Davivienda</option>
+                            <option value="bbva">BBVA</option>
+                            <option value="nequi">Nequi</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tarjeta 2: Resumen del pedido -->
+            <section class="payment-card summary-card">
+                <h2 class="card-title">Resumen del pedido</h2>
+
+                <div class="summary-row">
+                    <span>Subtotal (3 items)</span>
+                    <span class="amount">$ 200.000.</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Costo de envío</span>
+                    <span class="amount">$ 30.000.</span>
+                </div>
+
+                <hr class="summary-divider">
+
+                <div class="summary-row total-row">
+                    <span>Total a pagar</span>
+                    <span class="amount total-amount">$ 230.000.</span>
+                </div>
+            </section>
+
+            <!-- Botón principal de pago -->
+            <div class="btn-container">
+                <button type="submit" class="btn-pay">Confirmar y Pagar</button>
+            </div>
+
+        </form>
+
+    </main>
+
+    <!-- Notificación Toast -->
+    <div id="payment-toast" class="toast">¡Pago confirmado con éxito! Gracias por tu compra.</div>
+
+    <!-- Script interactivo -->
+    <script>
+        function cambiarMetodo(metodo) {
+            const fieldsCard = document.getElementById('fields-card');
+            const fieldsPse = document.getElementById('fields-pse');
+            const labelCard = document.getElementById('label-card');
+            const labelPse = document.getElementById('label-pse');
+
+            if (metodo === 'tarjeta') {
+                fieldsCard.style.display = 'block';
+                fieldsPse.style.display = 'none';
+                labelCard.classList.add('active');
+                labelPse.classList.remove('active');
+            } else {
+                fieldsCard.style.display = 'none';
+                fieldsPse.style.display = 'block';
+                labelCard.classList.remove('active');
+                labelPse.classList.add('active');
+            }
+        }
+
+        function procesarPago() {
+            const toast = document.getElementById('payment-toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+                window.location.href = 'main_menu.html';
+            }, 2500);
+        }
+    </script>
+
+</body>
+
+</html>

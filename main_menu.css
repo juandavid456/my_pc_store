@@ -1,0 +1,276 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #1a1829;
+    padding-bottom: 70px;
+    color: #ffffff;
+}
+
+/* Encabezado */
+.main-header {
+    background-color: #121020;
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Buscador */
+.search-container {
+    flex: 1;
+    max-width: 450px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px 18px;
+    border-radius: 20px;
+    border: 1px solid #3b3759;
+    background-color: #26233d;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-container input:focus {
+    border-color: #38bdf8;
+}
+
+/* Enlaces del Header */
+.user-links {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-account {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: #26233d;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+.btn-account:hover {
+    background-color: #38bdf8;
+    color: #121020;
+}
+
+/* Barra de navegación */
+.nav-bar {
+    background-color: #26233d;
+    display: flex;
+}
+
+.nav-bar a {
+    flex: 1;
+    text-align: center;
+    padding: 12px 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.2s;
+}
+
+.nav-bar a:last-child {
+    border-right: none;
+}
+
+.nav-bar a:hover {
+    background-color: #38bdf8;
+    color: #121020;
+}
+
+/* Banner promocional */
+.hero-banner {
+    width: 100%;
+    height: 320px;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('https://wallpapercave.com/wp/wp9726327.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 40px 60px;
+}
+
+.banner-text {
+    color: #ffffff;
+    font-size: 44px;
+    font-weight: bold;
+    line-height: 1.1;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    text-transform: uppercase;
+}
+
+/* Cuadrícula de productos */
+.products-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 0 20px;
+}
+
+.product-card {
+    background-color: #26233d;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.product-image-box {
+    background-color: #ffffff;
+    width: 100%;
+    height: 180px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.product-image-box img {
+    max-width: 130px;
+    height: auto;
+}
+
+.product-title {
+    font-size: 12px;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 12px;
+    height: 32px;
+    overflow: hidden;
+}
+
+.product-price {
+    width: 100%;
+    text-align: right;
+    font-size: 17px;
+    font-weight: bold;
+    color: #38bdf8;
+    margin-bottom: 12px;
+}
+
+.btn-add-cart {
+    width: 100%;
+    background-color: #38bdf8;
+    color: #121020;
+    border: none;
+    padding: 11px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-add-cart:hover {
+    background-color: #7dd3fc;
+}
+
+/* Botón flotante */
+.floating-cart-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #38bdf8;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: 0.2s;
+}
+
+.floating-cart-btn:hover {
+    transform: scale(1.08);
+}
+
+.floating-cart-btn img {
+    width: 26px;
+    height: 26px;
+}
+
+/* Notificación Toast */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #121020;
+    color: #ffffff;
+    border: 1px solid #38bdf8;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+    .search-container {
+        width: 100%;
+    }
+    .nav-bar {
+        overflow-x: auto;
+    }
+    .nav-bar a {
+        flex: none;
+        padding: 12px 15px;
+    }
+    .products-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .hero-banner {
+        height: 240px;
+        padding: 20px;
+    }
+    .banner-text {
+        font-size: 32px;
+    }
+}

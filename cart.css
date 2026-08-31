@@ -1,0 +1,241 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #1a1829;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    padding-bottom: 60px;
+}
+
+/* Encabezado */
+.main-header {
+    background-color: #121020;
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo a {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.search-container {
+    flex: 1;
+    max-width: 450px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px 18px;
+    border-radius: 20px;
+    border: 1px solid #3b3759;
+    background-color: #26233d;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-container input:focus {
+    border-color: #38bdf8;
+}
+
+.user-links {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-account {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: #26233d;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+.btn-account:hover {
+    background-color: #38bdf8;
+    color: #121020;
+}
+
+/* Indicador de pasos / Breadcrumbs */
+.steps-container {
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #9ca3af;
+}
+
+.steps-container .step.active {
+    color: #38bdf8;
+}
+
+.steps-container .arrow {
+    margin: 0 8px;
+}
+
+/* Contenedor del carrito */
+.cart-wrapper {
+    max-width: 850px;
+    width: 100%;
+    margin: 10px auto;
+    padding: 0 20px;
+    flex-grow: 1;
+}
+
+/* Filas de productos */
+.cart-item {
+    background-color: #26233d;
+    border-radius: 12px;
+    padding: 16px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.item-details {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.image-holder {
+    background-color: #ffffff;
+    width: 85px;
+    height: 85px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+}
+
+.image-holder img {
+    max-width: 65px;
+    height: auto;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.item-title {
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: bold;
+    max-width: 380px;
+    line-height: 1.4;
+}
+
+.item-qty {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.price-badge {
+    background-color: #121020;
+    color: #38bdf8;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    border: 1px solid #3b3759;
+}
+
+/* Resumen y botón de pagar */
+.summary-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #26233d;
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.total-box {
+    font-size: 18px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.total-box span {
+    color: #ffffff;
+    margin-right: 8px;
+}
+
+.btn-checkout {
+    background-color: #38bdf8;
+    color: #121020;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.2s;
+}
+
+.btn-checkout:hover {
+    background-color: #7dd3fc;
+    transform: translateY(-2px);
+}
+
+/* Responsivo para móviles */
+@media (max-width: 680px) {
+    .main-header {
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px 20px;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .item-details {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .summary-container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .btn-checkout {
+        width: 100%;
+        text-align: center;
+    }
+}

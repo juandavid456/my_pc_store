@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My PC Store - Catálogo</title>
+    <link rel="stylesheet" href="main_menu.css">
+</head>
+
+<body>
+
+    <!-- Encabezado con Logo y Buscador -->
+    <header class="main-header">
+        <h1 class="logo"><a href="main_menu.html">My PC Store</a></h1>
+        <div class="search-container">
+            <input type="text" placeholder="Buscar productos...">
+        </div>
+        <div class="user-links">
+            <a href="login.html" class="btn-account">Mi Cuenta</a>
+            <a href="cart.html" class="btn-account">Carrito</a>
+        </div>
+    </header>
+
+    <!-- Barra de navegación por categorías -->
+    <nav class="nav-bar">
+        <a href="#">PC gamer</a>
+        <a href="#">Laptops</a>
+        <a href="#">Monitores</a>
+        <a href="#">Mantenimiento</a>
+        <a href="pago.html">Metodos de pago</a>
+        <a href="login.html">Sobre nosotros</a>
+    </nav>
+
+    <!-- Banner promocional -->
+    <section class="hero-banner">
+        <div class="banner-text">
+            Precios<br>increibles
+        </div>
+    </section>
+
+    <!-- Cuadrícula de productos -->
+    <main class="products-container">
+
+        <article class="product-card">
+            <div class="product-image-box">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
+            </div>
+            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
+            <div class="product-price">$ 69.000.</div>
+            <button type="button" class="btn-add-cart">Agregar al carrito</button>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image-box">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
+            </div>
+            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
+            <div class="product-price">$ 69.000.</div>
+            <button type="button" class="btn-add-cart">Agregar al carrito</button>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image-box">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
+            </div>
+            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
+            <div class="product-price">$ 69.000.</div>
+            <button type="button" class="btn-add-cart">Agregar al carrito</button>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image-box">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
+            </div>
+            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
+            <div class="product-price">$ 69.000.</div>
+            <button type="button" class="btn-add-cart">Agregar al carrito</button>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image-box">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
+            </div>
+            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
+            <div class="product-price">$ 69.000.</div>
+            <button type="button" class="btn-add-cart">Agregar al carrito</button>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image-box">
+                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
+            </div>
+            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
+            <div class="product-price">$ 69.000.</div>
+            <button type="button" class="btn-add-cart">Agregar al carrito</button>
+        </article>
+
+    </main>
+
+    <!-- Botón flotante del carrito -->
+    <a href="cart.html" class="floating-cart-btn" title="Ver carrito">
+        <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Carrito">
+    </a>
+
+    <!-- Notificación Toast -->
+    <div id="notification-toast" class="toast">¡Producto agregado al carrito!</div>
+
+    <!-- Script para la notificación -->
+    <script>
+        const botones = document.querySelectorAll('.btn-add-cart');
+        const toast = document.getElementById('notification-toast');
+
+        botones.forEach(boton => {
+            boton.addEventListener('click', () => {
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+
+</html>

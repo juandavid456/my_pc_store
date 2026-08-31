@@ -1,0 +1,332 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #1a1829;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    padding-bottom: 70px;
+}
+
+/* Encabezado */
+.main-header {
+    background-color: #121020;
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo a {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.search-container {
+    flex: 1;
+    max-width: 450px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px 18px;
+    border-radius: 20px;
+    border: 1px solid #3b3759;
+    background-color: #26233d;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-container input:focus {
+    border-color: #38bdf8;
+}
+
+.user-links {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-account {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: #26233d;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+.btn-account:hover {
+    background-color: #38bdf8;
+    color: #121020;
+}
+
+/* Indicador de pasos / Breadcrumbs */
+.steps-container {
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #9ca3af;
+}
+
+.steps-container a {
+    color: #9ca3af;
+    text-decoration: none;
+}
+
+.steps-container a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.steps-container .step.active {
+    color: #38bdf8;
+}
+
+.steps-container .arrow {
+    margin: 0 8px;
+}
+
+/* Contenedor principal de pago */
+.payment-wrapper {
+    max-width: 850px;
+    width: 100%;
+    margin: 10px auto;
+    padding: 0 20px;
+    flex-grow: 1;
+}
+
+/* Tarjetas de contenido */
+.payment-card {
+    background-color: #26233d;
+    border-radius: 12px;
+    padding: 24px 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 10px;
+}
+
+/* Opciones de Método de pago */
+.payment-options {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 22px;
+}
+
+.option-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: #cbd5e1;
+    padding: 8px 16px;
+    background-color: #1a1829;
+    border-radius: 20px;
+    border: 1px solid #3b3759;
+    transition: 0.2s;
+}
+
+.option-label:hover {
+    border-color: #38bdf8;
+}
+
+.option-label.active {
+    background-color: #121020;
+    border-color: #38bdf8;
+    color: #ffffff;
+}
+
+.option-label input[type="radio"] {
+    display: none;
+}
+
+.radio-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #64748b;
+    display: inline-block;
+}
+
+.option-label.active .radio-dot {
+    background-color: #38bdf8;
+    border-color: #38bdf8;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+}
+
+/* Campos del formulario */
+.payment-fields {
+    margin-top: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.payment-fields input,
+.payment-fields select {
+    width: 100%;
+    padding: 12px 18px;
+    background-color: #121020;
+    border: 1px solid #3b3759;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #ffffff;
+    outline: none;
+    transition: 0.2s;
+}
+
+.payment-fields input::placeholder {
+    color: #94a3b8;
+}
+
+.payment-fields input:focus,
+.payment-fields select:focus {
+    border-color: #38bdf8;
+    background-color: #191630;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+/* Resumen del pedido */
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    margin-bottom: 12px;
+    color: #cbd5e1;
+}
+
+.summary-row .amount {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.summary-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 16px 0;
+}
+
+.total-row {
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.total-row .total-amount {
+    font-size: 20px;
+    color: #38bdf8;
+}
+
+/* Botón de pago */
+.btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.btn-pay {
+    background-color: #38bdf8;
+    color: #121020;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+}
+
+.btn-pay:hover {
+    background-color: #7dd3fc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(56, 189, 248, 0.4);
+}
+
+/* Notificación Toast */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #121020;
+    color: #ffffff;
+    border: 1px solid #38bdf8;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 1000;
+    text-align: center;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Responsivo para móviles */
+@media (max-width: 680px) {
+    .main-header {
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px 20px;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    .payment-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .payment-card {
+        padding: 20px 16px;
+    }
+
+    .btn-container {
+        justify-content: stretch;
+    }
+
+    .btn-pay {
+        width: 100%;
+    }
+}
