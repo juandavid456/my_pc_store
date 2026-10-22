@@ -26,65 +26,116 @@
     <div class="steps-container">
         <span class="step active">(1 Carrito)</span>
         <span class="arrow">➡️</span>
-        <span class="step">2 Pago</span>
+        <a href="pago.html" class="step">2 Pago</a>
         <span class="arrow">➡️</span>
         <span class="step">3 Confirmación</span>
     </div>
 
-    <!-- Lista de productos en el carrito -->
+    <!-- Contenedor dinámico del carrito -->
     <main class="cart-wrapper">
 
-        <!-- Producto 1 -->
-        <article class="cart-item">
-            <div class="item-details">
-                <div class="image-holder">
-                    <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
-                </div>
-                <div class="item-info">
-                    <h2 class="item-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
-                    <span class="item-qty">Cantidad: 1</span>
-                </div>
-            </div>
-            <div class="price-badge">$ 69.000.</div>
-        </article>
-
-        <!-- Producto 2 -->
-        <article class="cart-item">
-            <div class="item-details">
-                <div class="image-holder">
-                    <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
-                </div>
-                <div class="item-info">
-                    <h2 class="item-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
-                    <span class="item-qty">Cantidad: 1</span>
-                </div>
-            </div>
-            <div class="price-badge">$ 69.000.</div>
-        </article>
-
-        <!-- Producto 3 -->
-        <article class="cart-item">
-            <div class="item-details">
-                <div class="image-holder">
-                    <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
-                </div>
-                <div class="item-info">
-                    <h2 class="item-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
-                    <span class="item-qty">Cantidad: 1</span>
-                </div>
-            </div>
-            <div class="price-badge">$ 69.000.</div>
-        </article>
+        <!-- Lista generada dinámicamente con JavaScript -->
+        <div id="cart-items-container"></div>
 
         <!-- Resumen y botón para ir a pagar -->
-        <footer class="summary-container">
+        <footer id="summary-footer" class="summary-container">
             <div class="total-box">
-                <span>TOTAL:</span> $ 200.000.
+                <span>TOTAL:</span> <strong id="total-amount">$ 0.</strong>
             </div>
             <a href="pago.html" class="btn-checkout">Ir a Pagar</a>
         </footer>
 
     </main>
+
+    <!-- Script de Carrito Dinámico con localStorage -->
+    <script>
+        // 1. Inicialización de prueba si el carrito aún no existe en localStorage
+        if (!localStorage.getItem('carrito')) {
+            localStorage.setItem('carrito', JSON.stringify([
+                { id: "1", nombre: "VENTILADOR XPG HURRICANE 140MM ARGB BLANCO", precio: 69000, img: "https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp", cantidad: 1 },
+                { id: "2", nombre: "VENTILADOR XPG HURRICANE 140MM ARGB BLANCO", precio: 69000, img: "https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp", cantidad: 1 },
+                { id: "3", nombre: "VENTILADOR XPG HURRICANE 140MM ARGB BLANCO", precio: 69000, img: "https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp", cantidad: 1 }
+            ]));
+        }
+
+        // 2. Función que dibuja los productos en pantalla
+        function renderizarCarrito() {
+            const container = document.getElementById('cart-items-container');
+            const summaryFooter = document.getElementById('summary-footer');
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+            container.innerHTML = '';
+
+            // Si no hay productos en el carrito
+            if (carrito.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <p>Tu carrito está vacío 🛒</p>
+                        <a href="main_menu.html" class="btn-checkout">Ir al Catálogo</a>
+                    </div>
+                `;
+                summaryFooter.style.display = 'none';
+                return;
+            }
+
+            summaryFooter.style.display = 'flex';
+            let total = 0;
+
+            // Renderizar cada artículo del carrito
+            carrito.forEach((item, index) => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+
+                const card = document.createElement('article');
+                card.className = 'cart-item';
+                card.innerHTML = `
+                    <div class="item-details">
+                        <div class="image-holder">
+                            <img src="${item.img}" alt="${item.nombre}">
+                        </div>
+                        <div class="item-info">
+                            <h2 class="item-title">${item.nombre}</h2>
+                            <div class="qty-control">
+                                <button type="button" class="btn-qty" onclick="cambiarCantidad(${index}, -1)" title="Restar">-</button>
+                                <span class="qty-value">${item.cantidad}</span>
+                                <button type="button" class="btn-qty" onclick="cambiarCantidad(${index}, 1)" title="Sumar">+</button>
+                                <button type="button" class="btn-remove" onclick="eliminarProducto(${index})" title="Eliminar del carrito">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="price-badge">$ ${subtotal.toLocaleString('es-CO')}.</div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Actualizar total general
+            document.getElementById('total-amount').textContent = '$ ' + total.toLocaleString('es-CO') + '.';
+        }
+
+        // 3. Función para cambiar cantidad (+ o -)
+        function cambiarCantidad(index, cambio) {
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            if (carrito[index]) {
+                carrito[index].cantidad += cambio;
+                if (carrito[index].cantidad <= 0) {
+                    carrito.splice(index, 1); // Si llega a 0, se remueve
+                }
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                renderizarCarrito();
+            }
+        }
+
+        // 4. Función para eliminar producto con la papelera
+        function eliminarProducto(index) {
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            carrito.splice(index, 1);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            renderizarCarrito();
+        }
+
+        // Ejecutar al cargar la página
+        renderizarCarrito();
+    </script>
 
 </body>
 

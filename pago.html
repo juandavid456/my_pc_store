@@ -88,8 +88,8 @@
                 <h2 class="card-title">Resumen del pedido</h2>
 
                 <div class="summary-row">
-                    <span>Subtotal (3 items)</span>
-                    <span class="amount">$ 200.000.</span>
+                    <span id="resumen-items">Subtotal (3 items)</span>
+                    <span id="resumen-subtotal" class="amount">$ 207.000.</span>
                 </div>
 
                 <div class="summary-row">
@@ -101,7 +101,7 @@
 
                 <div class="summary-row total-row">
                     <span>Total a pagar</span>
-                    <span class="amount total-amount">$ 230.000.</span>
+                    <span id="resumen-total" class="amount total-amount">$ 237.000.</span>
                 </div>
             </section>
 
@@ -119,6 +119,30 @@
 
     <!-- Script interactivo -->
     <script>
+        // Cargar los valores reales del carrito dinámico
+        function cargarResumenPago() {
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            let totalItems = 0;
+            let subtotal = 0;
+            const envio = 30000;
+
+            carrito.forEach(item => {
+                totalItems += item.cantidad;
+                subtotal += item.precio * item.cantidad;
+            });
+
+            if (totalItems === 0) {
+                totalItems = 3;
+                subtotal = 207000;
+            }
+
+            const total = subtotal + envio;
+
+            document.getElementById('resumen-items').textContent = `Subtotal (${totalItems} items)`;
+            document.getElementById('resumen-subtotal').textContent = '$ ' + subtotal.toLocaleString('es-CO') + '.';
+            document.getElementById('resumen-total').textContent = '$ ' + total.toLocaleString('es-CO') + '.';
+        }
+
         function cambiarMetodo(metodo) {
             const fieldsCard = document.getElementById('fields-card');
             const fieldsPse = document.getElementById('fields-pse');
@@ -141,11 +165,16 @@
         function procesarPago() {
             const toast = document.getElementById('payment-toast');
             toast.classList.add('show');
+            // Limpiar el carrito tras completar la compra
+            localStorage.removeItem('carrito');
             setTimeout(() => {
                 toast.classList.remove('show');
                 window.location.href = 'main_menu.html';
             }, 2500);
         }
+
+        // Cargar datos al abrir
+        cargarResumenPago();
     </script>
 
 </body>

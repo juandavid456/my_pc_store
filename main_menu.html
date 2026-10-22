@@ -18,7 +18,9 @@
         </div>
         <div class="user-links">
             <a href="login.html" class="btn-account">Mi Cuenta</a>
-            <a href="cart.html" class="btn-account">Carrito</a>
+            <a href="cart.html" class="btn-account">
+                Carrito <span id="header-cart-badge" class="badge">0</span>
+            </a>
         </div>
     </header>
 
@@ -98,27 +100,68 @@
 
     </main>
 
-    <!-- Botón flotante del carrito -->
-    <a href="cart.html" class="floating-cart-btn" title="Ver carrito">
+    <!-- Botón flotante para el carrito con contador -->
+    <a href="cart.html" class="floating-cart-btn" id="floating-cart" title="Ver carrito">
         <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Carrito">
+        <span id="floating-badge" class="floating-badge">0</span>
     </a>
 
     <!-- Notificación Toast -->
     <div id="notification-toast" class="toast">¡Producto agregado al carrito!</div>
 
-    <!-- Script para la notificación -->
+    <!-- Script simplificado -->
     <script>
-        const botones = document.querySelectorAll('.btn-add-cart');
-        const toast = document.getElementById('notification-toast');
+        // Función para actualizar los contadores visuales del carrito
+        function actualizarContadores() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const totalItems = carrito.reduce((suma, item) => suma + item.cantidad, 0);
 
-        botones.forEach(boton => {
-            boton.addEventListener('click', () => {
+            // Badge flotante
+            const floatingBadge = document.getElementById('floating-badge');
+            floatingBadge.textContent = totalItems;
+            floatingBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+
+            // Badge en el encabezado
+            const headerBadge = document.getElementById('header-cart-badge');
+            headerBadge.textContent = totalItems;
+            headerBadge.style.display = totalItems > 0 ? 'inline-block' : 'none';
+        }
+
+        // Agregar productos al hacer clic
+        document.querySelectorAll('.btn-add-cart').forEach((boton, index) => {
+            boton.addEventListener('click', (e) => {
+                const card = e.target.closest('.product-card');
+                const nombre = card.querySelector('.product-title').textContent.trim();
+                const img = card.querySelector('img').src;
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+                // Si ya está en la lista, aumentamos cantidad
+                const existente = carrito.find(item => item.id === index + 1);
+                if (existente) {
+                    existente.cantidad += 1;
+                } else {
+                    carrito.push({ id: index + 1, nombre, precio: 69000, img, cantidad: 1 });
+                }
+
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+
+                // 1. Animación de rebote en el icono del carrito
+                const cartBtn = document.getElementById('floating-cart');
+                cartBtn.classList.add('bounce');
+                setTimeout(() => cartBtn.classList.remove('bounce'), 500);
+
+                // 2. Actualizar contadores
+                actualizarContadores();
+
+                // 3. Mostrar Toast
+                const toast = document.getElementById('notification-toast');
                 toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 2000);
+                setTimeout(() => toast.classList.remove('show'), 2000);
             });
         });
+
+        // Cargar contadores al iniciar la página
+        actualizarContadores();
     </script>
 </body>
 
