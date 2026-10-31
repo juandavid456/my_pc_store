@@ -5,11 +5,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
 
-        System.out.println("=================================================");
         System.out.println("   CONECTANDO A MYSQL (XAMPP) CON JDBC...        ");
-        System.out.println("=================================================");
 
-        // Paso 1: Probar la conexion
+        // Probar la conexion
         Connection con = ConexionBD.conectar();
         if (con != null) {
             System.out.println("[OK] Conexion exitosa con la base de datos!\n");
@@ -21,7 +19,7 @@ public class Main {
         ProductoDAO dao = new ProductoDAO();
         int opcion = -1;
 
-        // Menú que espera a que tú decidas qué hacer paso por paso
+        // Menú de acciones
         while (opcion != 0) {
             System.out.println("---------------------------------------------");
             System.out.println("            MENU DE CONTROL CRUD             ");
@@ -43,13 +41,13 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    // OPERACION READ: Consultar la base de datos
+                    // READ: Consultar la base de datos
                     System.out.println(">>> CONSULTANDO LA BASE DE DATOS (READ)...");
                     dao.listar();
                     break;
 
                 case 2:
-                    // OPERACION CREATE: Escribir un producto nuevo
+                    // CREATE: Escribir un producto nuevo
                     System.out.println(">>> GUARDAR NUEVO PRODUCTO (CREATE)");
                     System.out.print("Escribe el nombre del producto: ");
                     String nombre = teclado.nextLine();
@@ -67,7 +65,7 @@ public class Main {
                     break;
 
                 case 3:
-                    // OPERACION UPDATE: Modificar el precio
+                    // UPDATE: Modificar el precio
                     System.out.println(">>> ACTUALIZAR PRECIO (UPDATE)");
                     System.out.print("Escribe el ID del producto que quieres modificar: ");
                     int idModificar = Integer.parseInt(teclado.nextLine());
@@ -79,7 +77,7 @@ public class Main {
                     break;
 
                 case 4:
-                    // OPERACION DELETE: Borrar un producto
+                    // DELETE: Borrar un producto
                     System.out.println(">>> ELIMINAR PRODUCTO (DELETE)");
                     System.out.print("Escribe el ID del producto que quieres borrar: ");
                     int idBorrar = Integer.parseInt(teclado.nextLine());

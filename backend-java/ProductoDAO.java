@@ -10,7 +10,7 @@ public class ProductoDAO {
     public void insertar(String nombre, String categoria, double precio, int stock) {
         String sql = "INSERT INTO productos (nombre, categoria, precio, stock) VALUES (?, ?, ?, ?)";
         try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+                PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, nombre);
             ps.setString(2, categoria);
@@ -29,15 +29,15 @@ public class ProductoDAO {
         String sql = "SELECT * FROM productos";
         System.out.println("\n--- LISTA DE PRODUCTOS EN LA BASE DE DATOS ---");
         try (Connection con = ConexionBD.conectar();
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
                 System.out.println("ID: " + rs.getInt("id") +
-                                   " | " + rs.getString("nombre") +
-                                   " | Categoria: " + rs.getString("categoria") +
-                                   " | Precio: $" + rs.getDouble("precio") +
-                                   " | Stock: " + rs.getInt("stock"));
+                        " | " + rs.getString("nombre") +
+                        " | Categoria: " + rs.getString("categoria") +
+                        " | Precio: $" + rs.getDouble("precio") +
+                        " | Stock: " + rs.getInt("stock"));
             }
 
         } catch (SQLException e) {
@@ -50,7 +50,7 @@ public class ProductoDAO {
     public void actualizarPrecio(int id, double nuevoPrecio) {
         String sql = "UPDATE productos SET precio = ? WHERE id = ?";
         try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+                PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setDouble(1, nuevoPrecio);
             ps.setInt(2, id);
@@ -66,7 +66,7 @@ public class ProductoDAO {
     public void eliminar(int id) {
         String sql = "DELETE FROM productos WHERE id = ?";
         try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+                PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             ps.executeUpdate();

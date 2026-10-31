@@ -44,59 +44,7 @@
     <!-- Cuadrícula de productos -->
     <main class="products-container">
 
-        <article class="product-card">
-            <div class="product-image-box">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
-            </div>
-            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
-            <div class="product-price">$ 69.000.</div>
-            <button type="button" class="btn-add-cart">Agregar al carrito</button>
-        </article>
 
-        <article class="product-card">
-            <div class="product-image-box">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
-            </div>
-            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
-            <div class="product-price">$ 69.000.</div>
-            <button type="button" class="btn-add-cart">Agregar al carrito</button>
-        </article>
-
-        <article class="product-card">
-            <div class="product-image-box">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
-            </div>
-            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
-            <div class="product-price">$ 69.000.</div>
-            <button type="button" class="btn-add-cart">Agregar al carrito</button>
-        </article>
-
-        <article class="product-card">
-            <div class="product-image-box">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
-            </div>
-            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
-            <div class="product-price">$ 69.000.</div>
-            <button type="button" class="btn-add-cart">Agregar al carrito</button>
-        </article>
-
-        <article class="product-card">
-            <div class="product-image-box">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
-            </div>
-            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
-            <div class="product-price">$ 69.000.</div>
-            <button type="button" class="btn-add-cart">Agregar al carrito</button>
-        </article>
-
-        <article class="product-card">
-            <div class="product-image-box">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp" alt="Ventilador XPG">
-            </div>
-            <h2 class="product-title">VENTILADOR XPG HURRICANE 140MM ARGB BLANCO</h2>
-            <div class="product-price">$ 69.000.</div>
-            <button type="button" class="btn-add-cart">Agregar al carrito</button>
-        </article>
 
     </main>
 
@@ -109,60 +57,91 @@
     <!-- Notificación Toast -->
     <div id="notification-toast" class="toast">¡Producto agregado al carrito!</div>
 
-    <!-- Script simplificado -->
+    <!-- Script -->
     <script>
         // Función para actualizar los contadores visuales del carrito
         function actualizarContadores() {
             const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
             const totalItems = carrito.reduce((suma, item) => suma + item.cantidad, 0);
 
-            // Badge flotante
             const floatingBadge = document.getElementById('floating-badge');
             floatingBadge.textContent = totalItems;
             floatingBadge.style.display = totalItems > 0 ? 'flex' : 'none';
 
-            // Badge en el encabezado
             const headerBadge = document.getElementById('header-cart-badge');
             headerBadge.textContent = totalItems;
             headerBadge.style.display = totalItems > 0 ? 'inline-block' : 'none';
         }
 
-        // Agregar productos al hacer clic
-        document.querySelectorAll('.btn-add-cart').forEach((boton, index) => {
-            boton.addEventListener('click', (e) => {
-                const card = e.target.closest('.product-card');
-                const nombre = card.querySelector('.product-title').textContent.trim();
-                const img = card.querySelector('img').src;
-                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        // Cargar productos desde la API de Node.js
+        function cargarProductos() {
+            fetch('http://localhost:3000/productos')
+                .then(res => res.json())
+                .then(productos => {
+                    const contenedor = document.querySelector('.products-container');
+                    contenedor.innerHTML = ''; // Limpiamos contenedor
 
-                // Si ya está en la lista, aumentamos cantidad
-                const existente = carrito.find(item => item.id === index + 1);
+                    productos.forEach(prod => {
+                        // Imagen por defecto o personalizada según el ID
+                        let imagenUrl = "https://http2.mlstatic.com/D_NQ_NP_2X_912925-MLU74599694729_022024-F.webp";
+                        if (prod.id === 2) imagenUrl = "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=500"; // Ejemplo para PC
+                        if (prod.id === 3) imagenUrl = "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500"; // Ejemplo para Monitor
+
+                        contenedor.innerHTML += `
+                            <article class="product-card" data-id="${prod.id}">
+                                <div class="product-image-box">
+                                    <img src="${imagenUrl}" alt="${prod.nombre}">
+                                </div>
+                                <h2 class="product-title">${prod.nombre}</h2>
+                                <div class="product-price">$ ${Number(prod.precio).toLocaleString()}</div>
+                                <button type="button" class="btn-add-cart">Agregar al carrito</button>
+                            </article>
+                        `;
+                    });
+                })
+                .catch(err => console.error("Error al conectar con la API:", err));
+        }
+
+        // Delegación de eventos para agregar al carrito los elementos dinámicos
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btn-add-cart')) {
+                const card = e.target.closest('.product-card');
+                const id = parseInt(card.getAttribute('data-id'));
+                const nombre = card.querySelector('.product-title').textContent.trim();
+                const precioTexto = card.querySelector('.product-price').textContent.replace('$', '').replace(/\./g, '').trim();
+                const precio = parseFloat(precioTexto);
+                const img = card.querySelector('img').src;
+
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                const existente = carrito.find(item => item.id === id);
+
                 if (existente) {
                     existente.cantidad += 1;
                 } else {
-                    carrito.push({ id: index + 1, nombre, precio: 69000, img, cantidad: 1 });
+                    carrito.push({ id, nombre, precio, img, cantidad: 1 });
                 }
 
                 localStorage.setItem('carrito', JSON.stringify(carrito));
 
-                // 1. Animación de rebote en el icono del carrito
                 const cartBtn = document.getElementById('floating-cart');
                 cartBtn.classList.add('bounce');
                 setTimeout(() => cartBtn.classList.remove('bounce'), 500);
 
-                // 2. Actualizar contadores
                 actualizarContadores();
 
-                // 3. Mostrar Toast
                 const toast = document.getElementById('notification-toast');
                 toast.classList.add('show');
                 setTimeout(() => toast.classList.remove('show'), 2000);
-            });
+            }
         });
 
-        // Cargar contadores al iniciar la página
-        actualizarContadores();
+        // Inicializar al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarProductos();
+            actualizarContadores();
+        });
     </script>
+
 </body>
 
 </html>
