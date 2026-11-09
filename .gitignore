@@ -11,3 +11,4 @@ Desktop.ini
 .vscode/
 .idea/
 *.iml
+node_modules/

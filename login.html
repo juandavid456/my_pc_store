@@ -19,7 +19,7 @@
     <main class="login-card">
         <h2>Inicia Sesion</h2>
 
-        <form action="main_menu.html">
+        <form id="login-form">
             <div class="form-group">
                 <label for="email">Correo electronico:</label>
                 <input type="email" id="email" placeholder="ejemplo@correo.com" required>
@@ -33,12 +33,71 @@
             <div class="footer-container">
                 <div class="register-text">
                     No tienes una cuenta ?<br>
-                    <a href="#">crea una</a>
+                    <a href="registro.html">crea una</a>
                 </div>
-                <button type="submit" class="btn-submit">Iniciar Sesion</button>
+                <button type="submit" class="btn-submit" id="btn-login">Iniciar Sesion</button>
             </div>
         </form>
     </main>
+
+    <!-- Notificación Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        const form = document.getElementById('login-form');
+        const toast = document.getElementById('toast');
+        const btnLogin = document.getElementById('btn-login');
+
+        function mostrarMensaje(mensaje, esError = false) {
+            toast.textContent = mensaje;
+            if (esError) {
+                toast.classList.add('error');
+            } else {
+                toast.classList.remove('error');
+            }
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const correo = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            btnLogin.disabled = true;
+            btnLogin.textContent = 'Verificando...';
+
+            try {
+                const response = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ correo, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    mostrarMensaje(`¡Bienvenido, ${data.usuario?.nombre || 'Usuario'}!`, false);
+                    localStorage.setItem('usuario', JSON.stringify(data.usuario));
+                    setTimeout(() => {
+                        window.location.href = 'main_menu.html';
+                    }, 1200);
+                } else {
+                    mostrarMensaje(data.error || 'Credenciales incorrectas', true);
+                    btnLogin.disabled = false;
+                    btnLogin.textContent = 'Iniciar Sesion';
+                }
+            } catch (error) {
+                console.error('Error de conexión:', error);
+                mostrarMensaje('Error de conexión con el servidor (Node.js)', true);
+                btnLogin.disabled = false;
+                btnLogin.textContent = 'Iniciar Sesion';
+            }
+        });
+    </script>
 
 </body>
 
